@@ -5,7 +5,7 @@ import API from "../api/axios"
 import Carosal from "../components/Carosal"
 import Footer from "../components/Footer"
 import { Heart } from 'lucide-react';
-
+const BASE_URL = import.meta.env.VITE_BASE_URL
 
 const Home = () => {
     const [recipes, setRecipes] = useState<any[]>([])
@@ -76,13 +76,7 @@ const Home = () => {
                                 className="bg-transparent border border-gray-700 rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow cursor-pointer"
                             >
 
-                                {recipe.image && (
-                                    <img
-                                        src={`http://localhost:5000${recipe.image}`}
-                                        alt={recipe.title}
-                                        className="w-full h-48 sm:h-52 md:h-55 lg:h-60 object-cover"
-                                    />
-                                )}
+                               <img src={recipe.image ? `${BASE_URL}${recipe.image}` : "./dummy.jpg"} alt="Recipe" className="w-full h-48 sm:h-52 md:h-55 lg:h-60 object-cover" />
 
                                 <div className="p-3 sm:p-4">
                                     <h2 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-3 text-white">

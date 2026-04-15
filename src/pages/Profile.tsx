@@ -5,6 +5,7 @@ import Footer from "../components/Footer"
 import { Pencil } from "lucide-react"
 import API from "../api/axios"
 import { useEffect, useState } from "react"
+const BASE_URL = import.meta.env.VITE_BASE_URL
 
 
 const Profile = () => {
@@ -18,19 +19,6 @@ const Profile = () => {
     console.log("ProfileImage length:", user?.profileImage?.length)
     console.log("ProfileImage starts with:", user?.profileImage?.substring(0, 50))
     const [profileImage, setProfileImage] = useState<File | null>(null)
-    const [imagePreview, setImagePreview] = useState(user?.profileImage || "")
-
-    const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const file = e.target.files?.[0]
-        if (file) {
-            setProfileImage(file)
-            const reader = new FileReader()
-            reader.onloadend = () => {
-                setImagePreview(reader.result as string)
-            }
-            reader.readAsDataURL(file)
-        }
-    }
 
     useEffect(() => {
         const fetchUser = async () => {
@@ -75,17 +63,18 @@ const Profile = () => {
                 <div className="flex justify-center items-center flex-col w-full lg:w-[50%] px-4 sm:px-6 gap-4 sm:gap-5">
                     <h1 className="text-white text-2xl sm:text-3xl md:text-4xl font-bold">Profile</h1>
                     <div className="relative">
-                        <input
+                        {/* <input
                             type="file"
                             id="profile-upload"
                             className="absolute opacity-0 w-full h-full cursor-pointer"
                             accept="image/*"
                             onChange={handleImageChange}
-                        />
-                        <img
-                            src={imagePreview || (user?.profileImage ? `http://localhost:5000${user.profileImage}` : "./dummy.jpg")}
+                        /> */}
+                        {/* <img
+                            src={imagePreview || (user?.profileImage ? `${BASE_URL}${user.profileImage}` : "./dummy.jpg")}
                             className="w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40 lg:w-48 lg:h-48 rounded-full border-4 border-white object-cover"
-                        />
+                        /> */}
+                        <img src={user?.profileImage ? `${BASE_URL}${user.profileImage}` : "./dummy.jpg"} alt="Profile" className="w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40 lg:w-48 lg:h-48 rounded-full border-4 border-white object-cover" />
                     </div>
 
                     <p className="text-white text-lg sm:text-xl md:text-2xl font-semibold">{user?.name}</p>

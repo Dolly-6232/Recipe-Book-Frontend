@@ -4,6 +4,7 @@ import Navbar from "../components/Navbar"
 import API from "../api/axios"
 import Footer from "../components/Footer"
 import { Heart } from "lucide-react"
+const BASE_URL = import.meta.env.VITE_BASE_URL
 
 interface Recipe {
     _id: string
@@ -26,7 +27,7 @@ const Favorites = () => {
     useEffect(() => {
         const fetchFavorites = async () => {
             try {
-                const result = await API.get("/recipes/favorites")
+                const result = await API.get(`${BASE_URL}/recipes/favorites`)
                 const data = result.data
                 setFavorites(data)
                 // Set the favorited recipes IDs
@@ -43,7 +44,7 @@ const Favorites = () => {
 
     const handleRemoveFavorite = async (recipeId: string) => {
         try {
-            await API.delete(`/recipes/favorite/${recipeId}`)
+            await API.delete(`${BASE_URL}/recipes/favorite/${recipeId}`)
             setFavoritedRecipes(favoritedRecipes.filter(id => id !== recipeId))
             setFavorites(favorites.filter(recipe => recipe._id !== recipeId))
             console.log("Recipe unfavorited")
@@ -87,7 +88,7 @@ const Favorites = () => {
                             >
                                 {recipe.image && (
                                     <img
-                                        src={`http://localhost:5000${recipe.image}`}
+                                        src={`${BASE_URL}${recipe.image}`}
                                         alt={recipe.title}
                                         className="w-full h-48 sm:h-52 md:h-55 lg:h-60 object-cover"
                                     />
