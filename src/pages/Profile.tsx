@@ -4,7 +4,7 @@ import Navbar from "../components/Navbar"
 import Footer from "../components/Footer"
 import { Pencil } from "lucide-react"
 import API from "../api/axios"
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
 const BASE_URL = import.meta.env.VITE_BASE_URL
 
 
@@ -18,7 +18,6 @@ const Profile = () => {
     console.log("ProfileImage exists:", !!user?.profileImage)
     console.log("ProfileImage length:", user?.profileImage?.length)
     console.log("ProfileImage starts with:", user?.profileImage?.substring(0, 50))
-    const [profileImage, setProfileImage] = useState<File | null>(null)
 
     useEffect(() => {
         const fetchUser = async () => {
@@ -38,10 +37,6 @@ const Profile = () => {
             const formData = new FormData()
             formData.append("name", user?.name || "")
             formData.append("email", user?.email || "")
-
-            if (profileImage) {
-                formData.append("profileImage", profileImage)
-            }
 
             const result = await API.patch("/auth/update-profile", formData, {
                 headers: {
