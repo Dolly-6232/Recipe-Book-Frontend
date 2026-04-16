@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { Link } from "react-router-dom"
 import API from "../api/axios"
 import { useAuth } from "../utils/authUtils"
 import { useAppDispatch } from "../store/hooks"
@@ -60,7 +61,7 @@ const Login = () => {
                     </button>
 
                     <p className="text-white text-sm sm:text-base text-center">
-                        Don't have an account? <a href="/signup" className="text-blue-300 hover:text-blue-400">Sign Up</a>
+                        Don't have an account? <Link to="/signup" className="text-blue-300 hover:text-blue-400">Sign Up</Link>
                     </p>
 
                 </form>

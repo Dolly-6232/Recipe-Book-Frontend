@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { useForm } from "react-hook-form"
+import { Link } from "react-router-dom"
 import API from "../api/axios"
 import { useAuth } from "../utils/authUtils"
 import { useAppDispatch } from "../store/hooks"
@@ -117,7 +118,7 @@ const Signup = () => {
                     <button className="bg-red-500 text-white rounded p-2 w-full max-w-xs sm:max-w-sm hover:bg-red-600 transition-colors" type="submit">
                         Sign Up
                     </button>
-                    <p className="text-white text-sm sm:text-base">Already have an account? <a href="/login" className="text-blue-300 hover:text-blue-400">Login</a></p>
+                    <p className="text-white text-sm sm:text-base">Already have an account? <Link to="/login" className="text-blue-300 hover:text-blue-400">Login</Link></p>
                 </form>
             </div>
         </div>
