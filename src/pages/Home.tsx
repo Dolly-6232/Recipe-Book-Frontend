@@ -5,11 +5,19 @@ import API from "../api/axios"
 import Carosal from "../components/Carosal"
 import Footer from "../components/Footer"
 import { Heart } from 'lucide-react';
+import Dialog from "../components/Dialog"
 const BASE_URL = import.meta.env.VITE_BASE_URL
 
 const Home = () => {
     const [recipes, setRecipes] = useState<any[]>([])
     const [favoritedRecipes, setFavoritedRecipes] = useState<string[]>([])
+    const [dialog, setDialog] = useState({
+        isOpen: false,
+        title: '',
+        message: '',
+        type: 'success' as 'success' | 'error',
+        onConfirm: undefined
+    })
 
     useEffect(() => {
         const fetchData = async () => {
@@ -41,9 +49,22 @@ const Home = () => {
         try {
             await API.post(`/recipes/favorite/${recipeId}`)
             setFavoritedRecipes([...favoritedRecipes, recipeId])
+            setDialog({
+                isOpen: true,
+                title: 'Recipe Favorited!',
+                message: 'Recipe has been added to your favorites.',
+                type: 'success',
+                onConfirm: undefined
+            })
             console.log("Recipe favorited")
         } catch (error) {
-            console.error(error)
+            setDialog({
+                isOpen: true,
+                title: 'Error',
+                message: 'Failed to add recipe to favorites.',
+                type: 'error',
+                onConfirm: undefined
+            })
         }
     }
 
@@ -51,9 +72,21 @@ const Home = () => {
         try {
             await API.delete(`/recipes/favorite/${recipeId}`)
             setFavoritedRecipes(favoritedRecipes.filter(id => id !== recipeId))
-            console.log("Recipe unfavorited")
+            setDialog({
+                isOpen: true,
+                title: 'Recipe Unfavorited!',
+                message: 'Recipe has been removed from your favorites.',
+                type: 'success',
+                onConfirm: undefined
+            })
         } catch (error) {
-            console.error(error)
+            setDialog({
+                isOpen: true,
+                title: 'Error',
+                message: 'Failed to remove recipe from favorites.',
+                type: 'error',
+                onConfirm: undefined
+            })
         }
     }
 
@@ -113,6 +146,14 @@ const Home = () => {
                 )}
             </div>
             <Footer />
+               <Dialog
+                isOpen={dialog.isOpen}
+                onClose={() => setDialog({ ...dialog, isOpen: false })}
+                title={dialog.title}
+                message={dialog.message}
+                type={dialog.type}
+                onConfirm={dialog.onConfirm}
+            />
         </div>
     )
 }

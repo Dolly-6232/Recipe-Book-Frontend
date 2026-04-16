@@ -2,6 +2,7 @@ import { useState } from "react"
 import Navbar from "../components/Navbar"
 import API from "../api/axios"
 import Footer from "../components/Footer"
+import Dialog from "../components/Dialog"
 
 const AddRecipe = () => {
     const [title, setTitle] = useState("")
@@ -9,6 +10,8 @@ const AddRecipe = () => {
     const [instructions, setInstructions] = useState("")
     const [image, setImage] = useState<File | null>(null)
     const [preview, setPreview] = useState<string | null>(null)
+    const [dialog, setDialog] = useState({ isOpen: false, title: '', message: '', type: 'success' as 'success' | 'error', onConfirm: undefined as (() => void) | undefined })
+
 
     const handleRecipeSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
@@ -37,11 +40,23 @@ const AddRecipe = () => {
             setImage(null)
             setPreview(null)
 
-            alert("Recipe added successfully!")
+            setDialog({
+                isOpen: true,
+                title: "Success",
+                message: "Recipe added successfully!",
+                type: "success",
+                onConfirm: undefined
+            })
         } catch (error: Error | unknown) {
             console.error("Error adding recipe:", error)
             const errorMessage = error instanceof Error ? error.message : "Failed to add recipe"
-            alert(errorMessage)
+            setDialog({
+                isOpen: true,
+                title: "Error",
+                message: errorMessage,
+                type: "error",
+                onConfirm: undefined
+            })
         }
     }
 
@@ -116,7 +131,16 @@ const AddRecipe = () => {
                 <img src="./cookingform.png" alt="Add Recipe" className="w-full h-[40vh] lg:w-[50%] lg:h-[80vh] object-cover rounded-lg" />
             </div>
             <Footer />
+              <Dialog
+                isOpen={dialog.isOpen}
+                onClose={() => setDialog({ ...dialog, isOpen: false })}
+                title={dialog.title}
+                message={dialog.message}
+                type={dialog.type}
+                onConfirm={dialog.onConfirm}
+            />
         </div>
+       
     )
 }
 
