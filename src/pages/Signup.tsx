@@ -100,7 +100,7 @@ const Signup = () => {
                             onChange={handleImageChange}
                         />
                         <label
-                            htmlFor=""
+                            htmlFor="profile-upload"
                             className="flex items-center justify-center w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 lg:w-60 lg:h-60 rounded-full border-2 border-white cursor-pointer hover:bg-white hover:bg-opacity-10 transition-colors"
                         >
                             <img src={imagePreview} alt="Profile" className="w-full h-full rounded-full object-cover" />
