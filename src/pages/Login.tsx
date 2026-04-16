@@ -5,6 +5,7 @@ import { useAuth } from "../utils/authUtils"
 import { useAppDispatch } from "../store/hooks"
 import { setUser } from "../store/slices/userSlice"
 import Dialog from "../components/Dialog"
+import { Loader2Icon } from "lucide-react"
 
 const Login = () => {
     const [email, setEmail] = useState("")
@@ -12,9 +13,11 @@ const Login = () => {
     const [dialog, setDialog] = useState({ isOpen: false, title: '', message: '', type: 'success' as 'success' | 'error', onConfirm: undefined as (() => void) | undefined })
     const { login } = useAuth()
     const dispatch = useAppDispatch()
+    const [loading, setLoading] = useState(false)
 
     const res = async (e: React.FormEvent) => {
         e.preventDefault()
+        setLoading(true)
         try {
             const response = await API.post("/auth/login", {
                 email,
@@ -44,6 +47,8 @@ const Login = () => {
                 type: 'error',
                 onConfirm: undefined
             })
+        } finally {
+            setLoading(false)
         }
     }
 
@@ -73,10 +78,15 @@ const Login = () => {
                         />
 
                         <button
-                            className="bg-red-500 text-white rounded p-2 sm:p-3 w-full hover:bg-red-600 transition-colors"
+                            className="bg-red-500 text-white rounded p-2 sm:p-3 w-full hover:bg-red-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                             type="submit"
+                            disabled={loading}
                         >
-                            Login
+                            {loading ? (
+                                <div className="flex items-center justify-center">
+                                    <Loader2Icon className="animate-spin" />
+                                </div>
+                            ) : 'Login'}
                         </button>
 
                         <p className="text-white text-sm sm:text-base text-center">

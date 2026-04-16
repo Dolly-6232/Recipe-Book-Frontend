@@ -6,6 +6,7 @@ import { useAuth } from "../utils/authUtils"
 import { useAppDispatch } from "../store/hooks"
 import { setUser } from "../store/slices/userSlice"
 import Dialog from "../components/Dialog"
+import { Loader2Icon } from "lucide-react"
 
 interface SignupFormData {
     name: string
@@ -16,6 +17,7 @@ interface SignupFormData {
 const Signup = () => {
     const [imagePreview, setImagePreview] = useState("")
     const [dialog, setDialog] = useState({ isOpen: false, title: '', message: '', type: 'success' as 'success' | 'error', onConfirm: undefined as (() => void) | undefined })
+    const [loading, setLoading] = useState(false)
     const { login } = useAuth()
     const dispatch = useAppDispatch()
 
@@ -33,6 +35,7 @@ const Signup = () => {
     }
 
     const onSubmit = async (data: SignupFormData) => {
+        setLoading(true)
         try {
             const formData = new FormData()
             formData.append("name", data.name)
@@ -77,6 +80,8 @@ const Signup = () => {
                 type: 'error',
                 onConfirm: undefined
             })
+        } finally {
+            setLoading(false)
         }
     }
 
@@ -137,8 +142,12 @@ const Signup = () => {
                         />
                         {errors.password && <span className="text-red-400 text-sm">{errors.password.message}</span>}
 
-                        <button className="bg-red-500 text-white rounded p-2 w-full max-w-xs sm:max-w-sm hover:bg-red-600 transition-colors" type="submit">
-                            Sign Up
+                        <button className="bg-red-500 text-white rounded p-2 w-full max-w-xs sm:max-w-sm hover:bg-red-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed" type="submit" disabled={loading}>
+                            {loading ? (
+                                <div className="flex items-center justify-center">
+                                    <Loader2Icon className="animate-spin" />
+                                </div>
+                            ) : 'Sign Up'}
                         </button>
                         <p className="text-white text-sm sm:text-base">Already have an account? <Link to="/login" className="text-blue-300 hover:text-blue-400">Login</Link></p>
                     </form>
