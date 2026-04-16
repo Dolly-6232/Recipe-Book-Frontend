@@ -15,9 +15,9 @@ const Carosal = () => {
     }
 
     const images = [
-        "./carosal1.jpg",
-        "./carosal2.jpg",
-        "./carosal3.jpg"
+        "/carosal1.jpg",
+        "/carosal2.jpg",
+        "/carosal3.jpg"
     ]
 
     return (
