@@ -3,7 +3,7 @@ import { Link } from "react-router-dom"
 import Navbar from "../components/Navbar"
 import API from "../api/axios"
 import Footer from "../components/Footer"
-import { Heart } from "lucide-react"
+import { Heart, Loader2Icon } from "lucide-react"
 const BASE_URL = import.meta.env.VITE_BASE_URL
 
 interface Recipe {
@@ -44,7 +44,7 @@ const Favorites = () => {
 
     const handleRemoveFavorite = async (recipeId: string) => {
         try {
-            await API.delete(`${BASE_URL}/recipes/favorite/${recipeId}`)
+            await API.delete(`${BASE_URL}/api/recipes/favorite/${recipeId}`)
             setFavoritedRecipes(favoritedRecipes.filter(id => id !== recipeId))
             setFavorites(favorites.filter(recipe => recipe._id !== recipeId))
             console.log("Recipe unfavorited")
@@ -55,12 +55,12 @@ const Favorites = () => {
 
     if (loading) {
         return (
-            <div className="pt-16 overflow-x-hidden">
+            <div className="flex flex-col min-h-screen pt-16">
                 <Navbar />
-                <div className="container mx-auto px-4 sm:px-6 py-6">
-                    <p className="text-white text-center text-base sm:text-lg">
-                        Loading favorites...
-                    </p>
+                <div className="flex-grow container mx-auto px-4 sm:px-6 py-6 flex items-center justify-center">
+                   <div className="flex items-center justify-center">
+                                    <Loader2Icon className="animate-spin" />
+                                </div>
                 </div>
                 <Footer />
             </div>
@@ -68,9 +68,9 @@ const Favorites = () => {
     }
 
     return (
-        <div className="pt-16 overflow-x-hidden">
+        <div className="flex flex-col min-h-screen pt-16">
             <Navbar />
-            <div className="container mx-auto px-4 sm:px-6 py-6 sm:py-8">
+            <div className="flex-grow container mx-auto px-4 sm:px-6 py-6 sm:py-8">
                 <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-6 sm:mb-8 text-center">
                     My Favorites
                 </h1>
