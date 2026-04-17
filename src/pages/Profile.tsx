@@ -125,11 +125,11 @@ const Profile = () => {
                             className={`w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40 lg:w-48 lg:h-48 rounded-full border-4 border-white object-cover ${isEditing ? 'cursor-pointer' : ''}`}
                             onClick={() => isEditing && document.getElementById('profile-upload')?.click()}
                         />
-                        {isEditing && (
+                        {/* {isEditing && (
                             <div className="absolute bottom-0 right-0 bg-red-500 rounded-full p-2 cursor-pointer hover:bg-red-600">
                                 <Pencil size={16} className="text-white" />
                             </div>
-                        )}
+                        )} */}
                     </div>
 
                     {isEditing ? (
