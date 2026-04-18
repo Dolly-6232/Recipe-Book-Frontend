@@ -32,7 +32,7 @@ const Profile = () => {
         if (user) {
             setEditName(user.name || "")
             setEditEmail(user.email || "")
-            setImagePreview(user?.profileImage ? `${BASE_URL}${user.profileImage}` : "./dummy.jpg")
+            setImagePreview(user?.profileImage ? (user.profileImage.startsWith('http') ? user.profileImage : `${BASE_URL}${user.profileImage}`) : "./dummy.jpg")
         }
     }, [user])
 
@@ -99,7 +99,7 @@ const Profile = () => {
         setEditName(user?.name || "")
         setEditEmail(user?.email || "")
         setEditImage(null)
-        setImagePreview(user?.profileImage ? `${BASE_URL}${user.profileImage}` : "./dummy.jpg")
+        setImagePreview(user?.profileImage ? (user.profileImage.startsWith('http') ? user.profileImage : `${BASE_URL}${user.profileImage}`) : "./dummy.jpg")
     }
     return (
         <div className="w-full min-h-screen bg-cover bg-center overflow-x-hidden">
@@ -120,7 +120,7 @@ const Profile = () => {
                             />
                         )}
                         <img
-                            src={imagePreview || (user?.profileImage ? `${BASE_URL}${user.profileImage}` : "./dummy.jpg")}
+                            src={imagePreview || (user?.profileImage ? (user.profileImage.startsWith('http') ? user.profileImage : `${BASE_URL}${user.profileImage}`) : "./dummy.jpg")}
                             alt="Profile"
                             className={`w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40 lg:w-48 lg:h-48 rounded-full border-4 border-white object-cover ${isEditing ? 'cursor-pointer' : ''}`}
                             onClick={() => isEditing && document.getElementById('profile-upload')?.click()}

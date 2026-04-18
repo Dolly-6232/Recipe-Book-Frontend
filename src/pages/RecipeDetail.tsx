@@ -21,7 +21,7 @@ const RecipeDetail = () => {
                    <div className="flex flex-col lg:flex-row gap-6 sm:gap-8 lg:gap-10">
                      <div className="w-full lg:w-1/2">
                         <img
-                           src={`${BASE_URL}${recipe.image}`}
+                           src={recipe.image.startsWith('http') ? recipe.image : `${BASE_URL}${recipe.image}`}
                         alt={recipe.title}
                             className="w-full h-64 sm:h-80 md:h-96 object-cover rounded-xl shadow-lg"
                         />

@@ -109,7 +109,7 @@ const Home = () => {
                                 className="bg-transparent border border-gray-700 rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow cursor-pointer"
                             >
 
-                               <img src={recipe.image ? `${BASE_URL}${recipe.image}` : "./dummy.jpg"} alt="Recipe" className="w-full h-48 sm:h-52 md:h-55 lg:h-60 object-cover" />
+                               <img src={recipe.image ? (recipe.image.startsWith('http') ? recipe.image : `${BASE_URL}${recipe.image}`) : "./dummy.jpg"} alt="Recipe" className="w-full h-48 sm:h-52 md:h-55 lg:h-60 object-cover" />
 
                                 <div className="p-3 sm:p-4">
                                     <h2 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-3 text-white">

@@ -88,7 +88,7 @@ const Favorites = () => {
                             >
                                 {recipe.image && (
                                     <img
-                                        src={`${BASE_URL}${recipe.image}`}
+                                        src={recipe.image.startsWith('http') ? recipe.image : `${BASE_URL}${recipe.image}`}
                                         alt={recipe.title}
                                         className="w-full h-48 sm:h-52 md:h-55 lg:h-60 object-cover"
                                     />
