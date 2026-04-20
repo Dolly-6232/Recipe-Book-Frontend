@@ -22,7 +22,7 @@ const Home = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const result = await API.get("/recipes")
+                const result = await API.get("/api/recipes")
                 const data = result.data
                 setRecipes(data)
                 console.log(data)
@@ -33,7 +33,7 @@ const Home = () => {
 
         const fetchFavorites = async () => {
             try {
-                const result = await API.get("/recipes/favorites")
+                const result = await API.get("/api/recipes/favorites")
                 const favorites = result.data
                 setFavoritedRecipes(favorites.map((fav: any) => fav._id))
             } catch (error) {
@@ -47,7 +47,7 @@ const Home = () => {
 
     const handleAddFavorite = async (recipeId: string) => {
         try {
-            await API.post(`/recipes/favorite/${recipeId}`)
+            await API.post(`/api/recipes/favorite/${recipeId}`)
             setFavoritedRecipes([...favoritedRecipes, recipeId])
             setDialog({
                 isOpen: true,
@@ -70,7 +70,7 @@ const Home = () => {
 
     const handleRemoveFavorite = async (recipeId: string) => {
         try {
-            await API.delete(`/recipes/favorite/${recipeId}`)
+            await API.delete(`/api/recipes/favorite/${recipeId}`)
             setFavoritedRecipes(favoritedRecipes.filter(id => id !== recipeId))
             setDialog({
                 isOpen: true,
