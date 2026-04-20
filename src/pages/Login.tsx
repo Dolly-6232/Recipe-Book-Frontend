@@ -19,7 +19,7 @@ const Login = () => {
         e.preventDefault()
         setLoading(true)
         try {
-            const response = await API.post("/auth/login", {
+            const response = await API.post("/api/auth/login", {
                 email,
                 password
             })

@@ -28,7 +28,7 @@ const AddRecipe = () => {
         }
 
         try {
-            const res = await API.post("/recipes", formData, {
+            const res = await API.post("/api/recipes", formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
