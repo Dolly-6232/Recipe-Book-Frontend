@@ -44,7 +44,7 @@ const Favorites = () => {
 
     const handleRemoveFavorite = async (recipeId: string) => {
         try {
-            await API.delete(`${BASE_URL}/api/recipes/favorite/${recipeId}`)
+            await API.delete(`/api/recipes/favorite/${recipeId}`)
             setFavoritedRecipes(favoritedRecipes.filter(id => id !== recipeId))
             setFavorites(favorites.filter(recipe => recipe._id !== recipeId))
             console.log("Recipe unfavorited")
