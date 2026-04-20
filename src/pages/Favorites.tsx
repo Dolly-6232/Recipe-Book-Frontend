@@ -27,7 +27,7 @@ const Favorites = () => {
     useEffect(() => {
         const fetchFavorites = async () => {
             try {
-                const result = await API.get(`${BASE_URL}/api/recipes/favorites`)
+                const result = await API.get(`/api/recipes/favorites`)
                 const data = result.data
                 setFavorites(data)
                 // Set the favorited recipes IDs
