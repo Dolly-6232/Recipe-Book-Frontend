@@ -58,7 +58,7 @@ const Profile = () => {
                 formData.append("profileImage", editImage)
             }
 
-            const result = await API.patch("/auth/update-profile", formData, {
+            const result = await API.patch("/api/auth/update-profile", formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
